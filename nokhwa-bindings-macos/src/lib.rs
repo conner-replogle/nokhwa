@@ -2285,6 +2285,7 @@ mod internal {
                 FrameFormat::GRAY => kCMPixelFormat_8IndexedGray_WhiteIsZero,
                 FrameFormat::NV12 => kCVPixelFormatType_420YpCbCr10BiPlanarVideoRange,
                 FrameFormat::RAWRGB => kCMPixelFormat_24RGB,
+                FrameFormat::PRAA => todo!("PRAA"),
             };
             let obj = CFNumber::from(cmpixelfmt as i32);
             let obj = obj.as_CFTypeRef() as *mut Object;

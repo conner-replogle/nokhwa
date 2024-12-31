@@ -77,6 +77,7 @@ impl FormatDecoder for RgbFormat {
                 .collect()),
             FrameFormat::RAWRGB => Ok(data.to_vec()),
             FrameFormat::NV12 => nv12_to_rgb(resolution, data, false),
+            FrameFormat::PRAA => todo!("Implement PRAA to RGB conversion"),
         }
     }
 
@@ -112,6 +113,7 @@ impl FormatDecoder for RgbFormat {
                 Ok(())
             }
             FrameFormat::NV12 => buf_nv12_to_rgb(resolution, data, dest, false),
+            FrameFormat::PRAA => todo!("Implement PRAA to RGB conversion"),
         }
     }
 }
@@ -151,6 +153,7 @@ impl FormatDecoder for RgbAFormat {
                 .flat_map(|x| [x[0], x[1], x[2], 255])
                 .collect()),
             FrameFormat::NV12 => nv12_to_rgb(resolution, data, true),
+            FrameFormat::PRAA => todo!("Implement PRAA to RGBA conversion"),
         }
     }
 
@@ -194,6 +197,7 @@ impl FormatDecoder for RgbAFormat {
                 Ok(())
             }
             FrameFormat::NV12 => buf_nv12_to_rgb(resolution, data, dest, true),
+            FrameFormat::PRAA => todo!("Implement PRAA to RGBA conversion"),
         }
     }
 }
@@ -253,6 +257,10 @@ impl FormatDecoder for LumaFormat {
                 .chunks(3)
                 .map(|px| ((i32::from(px[0]) + i32::from(px[1]) + i32::from(px[2])) / 3) as u8)
                 .collect()),
+            FrameFormat::PRAA => Ok(data
+                .chunks(4)
+                .map(|px| ((i32::from(px[0]) + i32::from(px[1]) + i32::from(px[2])) / 3) as u8)
+                .collect()),
         }
     }
 
@@ -284,6 +292,7 @@ impl FormatDecoder for LumaFormat {
                 destination: "RGB => RGB".to_string(),
                 error: "Conversion Error".to_string(),
             }),
+            FrameFormat::PRAA => todo!("Implement PRAA to Luma conversion"),
         }
     }
 }
@@ -342,7 +351,9 @@ impl FormatDecoder for LumaAFormat {
                 src: fcc,
                 destination: "RGB => RGB".to_string(),
                 error: "Conversion Error".to_string(),
+            
             }),
+            FrameFormat::PRAA => todo!("Implement PRAA to LumaA conversion"),
         }
     }
 
@@ -396,6 +407,7 @@ impl FormatDecoder for LumaAFormat {
                 destination: "RGB => RGB".to_string(),
                 error: "Conversion Error".to_string(),
             }),
+            FrameFormat::PRAA   => todo!("Implement PRAA to LumaA conversion"),
         }
     }
 }
@@ -521,3 +533,4 @@ fn convert_yuyv_to_i420_direct(
 
     Ok(())
 }
+
